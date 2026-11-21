@@ -490,3 +490,213 @@
     padding: 18px;
   }
 }
+
+/* ==========================================
+   ADD / EDIT COURSE FORM
+========================================== */
+
+.course-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(35, 25, 55, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.course-form-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+  margin: auto;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.form-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #302942;
+  margin: 0 0 7px;
+}
+
+.form-header p {
+  font-size: 13px;
+  color: #898397;
+  margin: 0;
+}
+
+.btn-close-form {
+  border: none;
+  background: #f3eff9;
+  color: #665477;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-close-form:hover {
+  background: #e9def7;
+}
+
+.form-group {
+  margin-bottom: 19px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #49365f;
+  margin-bottom: 8px;
+}
+
+.form-group .form-control {
+  width: 100%;
+  height: 46px;
+  padding: 10px 13px;
+  border: 1px solid #e4d9f1;
+  border-radius: 9px;
+  background: #fbf9ff;
+  color: #352345;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group .form-control:focus {
+  background: #ffffff;
+  border-color: #8749ed;
+  box-shadow: 0 0 0 3px rgba(135, 73, 237, 0.12);
+}
+
+.form-group .text-danger {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 27px;
+  padding-top: 20px;
+  border-top: 1px solid #f0edf5;
+}
+
+.btn-cancel {
+  background: #f4f1f8;
+  color: #665477;
+  border: 1px solid #e6deef;
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background: #eae3f3;
+}
+
+.btn-save {
+  background: linear-gradient(110deg, #7545ed, #a33df0);
+  color: #ffffff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 9px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.btn-save:hover:not(:disabled) {
+  background: linear-gradient(110deg, #6330d6, #8d2ed9);
+}
+
+.btn-save:disabled,
+.btn-cancel:disabled,
+.btn-close-form:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   COURSE TABLE ACTIONS
+========================================== */
+
+.course-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-edit,
+.btn-deactivate {
+  padding: 7px 11px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-edit {
+  background: #f0eaff;
+  color: #7545ed;
+  border: 1px solid #dfd0ff;
+}
+
+.btn-edit:hover {
+  background: #e3d7ff;
+}
+
+.btn-deactivate {
+  background: #fff0f0;
+  color: #d64545;
+  border: 1px solid #ffd2d2;
+}
+
+.btn-deactivate:hover {
+  background: #ffe0e0;
+}
+
+/* ==========================================
+   RESPONSIVE FORM
+========================================== */
+
+@media (max-width: 576px) {
+  .course-form-card {
+    padding: 20px;
+  }
+
+  .form-header h2 {
+    font-size: 19px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .course-form-overlay {
+    align-items: flex-start;
+  }
+}
