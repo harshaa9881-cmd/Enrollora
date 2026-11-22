@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 
-import { StudentFilter, StudentResponse } from './student.models';
+import {
+  StudentFilter,
+  StudentResponse,
+  UpdateMyProfileRequest,
+} from './student.models';
 import { PagedResult } from '../../../shared/models/paged-result.model';
 import { ApiMessage } from '../../../core/auth/auth.models';
 import { UpdateStudentRequest } from './student.models';
@@ -66,5 +70,13 @@ export class StudentService {
 
   deleteStudent(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getMyProfile(): Observable<StudentResponse> {
+    return this.http.get<StudentResponse>(`${this.apiUrl}/me`);
+  }
+
+  updateMyProfile(request: UpdateMyProfileRequest): Observable<StudentResponse> {
+    return this.http.put<StudentResponse>(`${this.apiUrl}/me`, request);
   }
 }
