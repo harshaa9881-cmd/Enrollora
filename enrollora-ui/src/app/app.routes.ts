@@ -42,6 +42,13 @@ export const routes: Routes = [
             (m) => m.EnrollmentListComponent,
           ),
       },
+
+      {
+        path: 'cancellation-requests',
+        loadComponent: () =>
+          import('./features/admin/cancellation-requests/cancellation-review')
+            .then((m) => m.CancellationReview),
+      },
     ],
   },
   {
@@ -77,6 +84,14 @@ export const routes: Routes = [
             (m) => m.MyEnrollments,
           ),
       },
+
+      {
+        path: 'cancellation-history',
+        loadComponent: () =>
+          import('./features/student/cancellation-history/cancellation-history')
+            .then((m) => m.CancellationHistory),
+      },
+
       {
         path: '',
         redirectTo: 'courses',

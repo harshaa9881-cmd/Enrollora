@@ -1,0 +1,131 @@
+
+<div class="history-page">
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">MY ACCOUNT</span>
+      <h1>Cancellation History</h1>
+      <p>Track the status and review details of your cancellation requests.</p>
+    </div>
+    <div class="header-icon">↻</div>
+  </div>
+
+  <div class="history-summary">
+    <div class="summary-card">
+      <span>Total Requests</span>
+      <strong>{{ totalRecords() }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>Pending on This Page</span>
+      <strong>{{ requests().filter(r => r.status === 0).length }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>Completed on This Page</span>
+      <strong>{{ requests().filter(r => r.status !== 0).length }}</strong>
+    </div>
+  </div>
+
+  <div class="history-card">
+    <div class="card-heading">
+      <div>
+        <h2>Your Requests</h2>
+        <p>Review your submitted cancellation requests.</p>
+      </div>
+      <button class="refresh-btn" (click)="loadHistory()">Refresh</button>
+    </div>
+
+    @if (isLoading()) {
+      <div class="state-message">
+        <div class="loader"></div>
+        <p>Loading your cancellation history...</p>
+      </div>
+    } @else if (errorMessage()) {
+      <div class="state-message error-state">
+        <p>{{ errorMessage() }}</p>
+        <button class="refresh-btn" (click)="loadHistory()">Try Again</button>
+      </div>
+    } @else if (requests().length === 0) {
+      <div class="state-message">
+        <span class="empty-icon">↻</span>
+        <h3>No cancellation history</h3>
+        <p>When you submit a cancellation request, it will appear here.</p>
+      </div>
+    } @else {
+      <div class="request-list">
+        @for (request of requests(); track request.cancellationRequestId) {
+          <article class="request-card">
+            <div class="request-top">
+              <div>
+                <span class="request-id">
+                  REQUEST #{{ request.cancellationRequestId }}
+                </span>
+                <h3>{{ request.courseName }}</h3>
+                <span class="enrollment-id">
+                  Enrollment #{{ request.enrollmentId }}
+                </span>
+              </div>
+
+              <span class="status-badge"
+                [class.pending]="request.status === 0"
+                [class.approved]="request.status === 1"
+                [class.rejected]="request.status === 2">
+                {{ statusLabel(request.status) }}
+              </span>
+            </div>
+
+            <div class="request-reason">
+              <span>YOUR REASON</span>
+              <p>{{ request.reason }}</p>
+            </div>
+
+            <div class="request-dates">
+              <div>
+                <span>Requested on</span>
+                <strong>{{ request.requestedAt | date: 'dd MMM yyyy, h:mm a' }}</strong>
+              </div>
+              @if (request.reviewedAt) {
+                <div>
+                  <span>Reviewed on</span>
+                  <strong>{{ request.reviewedAt | date: 'dd MMM yyyy, h:mm a' }}</strong>
+                </div>
+              }
+            </div>
+
+            @if (request.status === 0) {
+              <div class="review-note pending-note">
+                Your request is waiting for administrator review. Your enrollment remains active.
+              </div>
+            } @else if (request.status === 1) {
+              <div class="review-note approved-note">
+                Your cancellation request was approved. Your enrollment has been cancelled.
+              </div>
+            } @else {
+              <div class="review-note rejected-note">
+                Your cancellation request was rejected.
+              </div>
+            }
+
+            @if (request.adminRemarks) {
+              <div class="admin-remarks">
+                <span>ADMINISTRATOR REMARKS</span>
+                <p>{{ request.adminRemarks }}</p>
+              </div>
+            }
+          </article>
+        }
+      </div>
+
+      <div class="pagination">
+        <span>Showing {{ requests().length }} of {{ totalRecords() }} requests</span>
+        <div>
+          <button (click)="previousPage()" [disabled]="pageNumber() === 1">
+            Previous
+          </button>
+          <span>{{ pageNumber() }} / {{ totalPages() }}</span>
+          <button (click)="nextPage()" [disabled]="pageNumber() >= totalPages()">
+            Next
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
